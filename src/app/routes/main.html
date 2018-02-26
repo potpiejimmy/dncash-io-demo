@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>dncash.io</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div style="margin: 1.5em;">
+<form (ngSubmit)="register()">
+    <div fxLayout="column" fxLayoutGap="10px">
+        <span class="verticalcenter">
+            <i class="material-icons">perm_device_information</i>
+            Register your device
+        </span>
+        <mat-form-field>
+            <input matInput placeholder="API Key" name="apikey" [(ngModel)]="apikey" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="API Secret" name="apisecret" [(ngModel)]="apisecret" required>
+        </mat-form-field>
+    </div>
+    <button *ngIf="!processing && !pair" mat-raised-button color="primary">Register</button>
+</form>
+
+<div fxLayout="column" fxLayoutGap="10px">
+    <span *ngIf="processing && !pair">Generating RSA key pair</span>
+    <mat-spinner *ngIf="processing && !pair"></mat-spinner>
+</div>
+
+</div>
