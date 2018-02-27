@@ -5,6 +5,13 @@
             <i class="material-icons">perm_device_information</i>
             Register your device
         </span>
+        <p>
+            Your device is not registered for Cash Services yet.
+        </p>
+        <p>
+            For demonstration purposes, please enter Token API
+            credentials below and click Register.
+        </p>
         <mat-form-field>
             <input matInput placeholder="API Key" formControlName="inpapikey" [(ngModel)]="apikey" required>
         </mat-form-field>
@@ -17,7 +24,7 @@
 </form>
 
 <div fxLayout="column" fxLayoutGap="10px">
-    <span *ngIf="processing && !pair">Generating RSA key pair</span>
+    <span *ngIf="processing && !pair">Generating 2048-bit RSA key pair</span>
     <span *ngIf="processing && pair">Registering</span>
     <mat-spinner *ngIf="processing"></mat-spinner>
 </div>

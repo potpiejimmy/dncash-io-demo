@@ -10,6 +10,8 @@ import { Router } from "@angular/router";
 })
 export class AccountComponent implements OnInit {
 
+    uuid: string;
+
     constructor(
         private localStorageService: LocalStorageService,
         private tokenApiService: TokenApiService,
@@ -19,7 +21,8 @@ export class AccountComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (!this.localStorageService.get('device-uuid')) {
+        this.uuid = this.localStorageService.get('device-uuid');
+        if (!this.uuid) {
             // not registered yet
             this.router.navigate(['/register']);
         }

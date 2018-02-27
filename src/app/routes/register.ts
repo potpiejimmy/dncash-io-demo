@@ -37,7 +37,7 @@ export class RegisterComponent {
     }
 
     registerDevice() {
-        this.pair = keypair({bits: 1024});
+        this.pair = keypair({bits: 2048});
         console.log(JSON.stringify(this.pair));
         this.localStorageService.set("DN-API-KEY", this.apikey);
         this.localStorageService.set("DN-API-SECRET", this.apisecret);
