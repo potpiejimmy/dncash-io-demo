@@ -2,7 +2,12 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "assets/devices.min.css";
 
+html {
+    height: 100%;
+}
+
 body {
+    height: 100%;
     margin: 0;
     border: 0;
     font-family: Roboto,"Helvetica Neue",sans-serif
@@ -19,4 +24,12 @@ body {
 .verticalcenter {
     display: flex;
     align-items: center; /* align vertical */
+}
+
+.marvel-device .screen, .mobile-body {
+    background: #f0f8ff;
+}
+
+.mobile-body {
+    height: 100%;
 }
