@@ -1,4 +1,4 @@
-<div fxShow.xs="false" class="fullscreencenter">
+<div *ngIf="!isMobile" class="fullscreencenter">
   <div class="marvel-device iphone8 silver">
       <div class="top-bar"></div>
       <div class="sleep"></div>
@@ -14,6 +14,6 @@
   </div>
 </div>
 
-<div fxHide fxShow.xs="true">
+<div *ngIf="isMobile">
   <app-main></app-main>
 </div>

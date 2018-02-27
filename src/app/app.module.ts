@@ -18,15 +18,20 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LocalStorageModule } from 'angular-2-local-storage';
 
 import { AppComponent } from './app.component';
-import { MainComponent } from './routes/main';
 import { AuthHttp } from './services/authhttp.service';
 import { TokenApiService } from './services/tokenapi.service';
+import { AccountComponent } from './routes/account';
+import { AppRoutes } from './app.routes';
+import { RegisterComponent } from './routes/register';
+import { AppMainComponent } from './app.main';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    AppMainComponent,
+    RegisterComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +49,7 @@ import { TokenApiService } from './services/tokenapi.service';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     // App:
+    AppRoutes,
     LocalStorageModule.withConfig({ prefix: 'dncashio-demo', storageType: 'localStorage' }), // or sessionStorage
   ],
   providers: [
