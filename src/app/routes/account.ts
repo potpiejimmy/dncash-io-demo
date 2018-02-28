@@ -11,6 +11,8 @@ import { Router } from "@angular/router";
 export class AccountComponent implements OnInit {
 
     uuid: string;
+    tokens = [];
+    columns = ['id', 'type', 'amount'];
 
     constructor(
         private localStorageService: LocalStorageService,
@@ -25,7 +27,25 @@ export class AccountComponent implements OnInit {
         if (!this.uuid) {
             // not registered yet
             this.router.navigate(['/register']);
+        } else {
+            this.refresh();
         }
+    }
+
+    selectRow(row) {
+        console.log(row);
+        this.tokenApiService.deleteToken(row.id).then(() => this.refresh());
+    }
+
+    refresh() {
+        this.tokenApiService.getTokens().then(res => this.tokens = res);
+    }
+
+    createToken(type: string) {
+        this.tokenApiService.createToken(type).then(res => {
+            console.log(res);
+            this.refresh();
+        });
     }
 }
   

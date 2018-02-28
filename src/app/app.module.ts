@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 
 // Special
 import { LocalStorageModule } from 'angular-2-local-storage';
@@ -48,6 +49,7 @@ import { AppMainComponent } from './app.main';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatTableModule,
     // App:
     AppRoutes,
     LocalStorageModule.withConfig({ prefix: 'dncashio-demo', storageType: 'localStorage' }), // or sessionStorage
