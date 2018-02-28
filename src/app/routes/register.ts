@@ -51,7 +51,7 @@ export class RegisterComponent {
             console.log("Registration failed: " + err);
             this.pair = null;
             this.processing = false;
-            this.snackBar.open(err, null, {duration: 3000, verticalPosition: 'top'});
+            this.snackBar.open(err, null, {duration: 5000, verticalPosition: 'top'});
         });
     }
 

@@ -34,7 +34,7 @@ export class AccountComponent implements OnInit {
 
     selectRow(row) {
         console.log(row);
-        this.tokenApiService.deleteToken(row.id).then(() => this.refresh());
+        this.tokenApiService.deleteToken(row.uuid).then(() => this.refresh());
     }
 
     refresh() {
@@ -45,6 +45,8 @@ export class AccountComponent implements OnInit {
         this.tokenApiService.createToken(type).then(res => {
             console.log(res);
             this.refresh();
+        }).catch(err => {
+            this.snackBar.open(err, null, {duration: 5000, verticalPosition: 'top'});
         });
     }
 }

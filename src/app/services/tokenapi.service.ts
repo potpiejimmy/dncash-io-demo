@@ -31,7 +31,7 @@ export class TokenApiService extends AuthHttp {
         return this.get(environment.apiUrl+"tokens?device_uuid="+this.localStorage.get("device-uuid"));
     }
 
-    deleteToken(id: number): Promise<any> {
-        return this.delete(environment.apiUrl+"tokens/"+id+"?device_uuid="+this.localStorage.get("device-uuid"));
+    deleteToken(uid: number): Promise<any> {
+        return this.delete(environment.apiUrl+"tokens/"+uid+"?device_uuid="+this.localStorage.get("device-uuid"));
     }
 }
