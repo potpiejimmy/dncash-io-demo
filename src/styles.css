@@ -33,3 +33,7 @@ body {
 .mobile-body {
     height: 100%;
 }
+
+.qrcode, .qrcode img {
+    width: 100%;
+}

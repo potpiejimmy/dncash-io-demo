@@ -1,0 +1,17 @@
+<div style="margin: 1em;">
+    <div fxLayout="row" fxLayoutGap="1em">
+        <a mat-icon-button routerLink="/"><i class="material-icons">keyboard_backspace</i></a>
+        <span style="flex: 1 1 auto;"></span>
+        <button mat-icon-button (click)="delete()"><i class="material-icons">delete_forever</i></button>
+    </div>
+</div>
+
+<ngx-qrcode 
+        [qrc-value] = "appService.currentToken && appService.currentToken.uuid"
+        qrc-class = "qrcode"
+        qrc-errorCorrectionLevel = "L">
+</ngx-qrcode>
+
+<div style="margin: 1em; text-align: center;">
+    <span>{{appService.currentToken && appService.currentToken.uuid}}</span>
+</div>

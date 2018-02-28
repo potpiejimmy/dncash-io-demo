@@ -3,6 +3,7 @@ import { TokenApiService } from "../services/tokenapi.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { LocalStorageService } from "angular-2-local-storage";
 import { Router } from "@angular/router";
+import { AppService } from "../services/app.service";
 
 @Component({
     selector: 'account',
@@ -17,6 +18,7 @@ export class AccountComponent implements OnInit {
     constructor(
         private localStorageService: LocalStorageService,
         private tokenApiService: TokenApiService,
+        private appService: AppService,
         private router: Router,
         public snackBar: MatSnackBar
     ) {
@@ -33,8 +35,9 @@ export class AccountComponent implements OnInit {
     }
 
     selectRow(row) {
-        console.log(row);
-        this.tokenApiService.deleteToken(row.uuid).then(() => this.refresh());
+        this.appService.currentToken = row;
+        //this.tokenApiService.deleteToken(row.uuid).then(() => this.refresh());
+        this.router.navigate(['/token']);
     }
 
     refresh() {

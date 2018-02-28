@@ -15,8 +15,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 
-// Special
+// Externals
 import { LocalStorageModule } from 'angular-2-local-storage';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 import { AppComponent } from './app.component';
 import { AuthHttp } from './services/authhttp.service';
@@ -25,6 +26,8 @@ import { AccountComponent } from './routes/account';
 import { AppRoutes } from './app.routes';
 import { RegisterComponent } from './routes/register';
 import { AppMainComponent } from './app.main';
+import { AppService } from './services/app.service';
+import { TokenComponent } from './routes/token';
 
 
 @NgModule({
@@ -32,7 +35,8 @@ import { AppMainComponent } from './app.main';
     AppComponent,
     AppMainComponent,
     RegisterComponent,
-    AccountComponent
+    AccountComponent,
+    TokenComponent
   ],
   imports: [
     BrowserModule,
@@ -50,11 +54,14 @@ import { AppMainComponent } from './app.main';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatTableModule,
-    // App:
-    AppRoutes,
+    // Externals:
+    NgxQRCodeModule,
     LocalStorageModule.withConfig({ prefix: 'dncashio-demo', storageType: 'localStorage' }), // or sessionStorage
+    // App:
+    AppRoutes
   ],
   providers: [
+    AppService,
     AuthHttp,
     TokenApiService
   ],
