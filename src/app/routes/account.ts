@@ -25,8 +25,12 @@ export class AccountComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        let apikey = this.localStorageService.get("DN-API-KEY");
         this.uuid = this.localStorageService.get('device-uuid');
-        if (!this.uuid) {
+        if (!apikey) {
+            // not set up for demo:
+            this.router.navigate(['/setup']);
+        } else if (!this.uuid) {
             // not registered yet
             this.router.navigate(['/register']);
         } else {

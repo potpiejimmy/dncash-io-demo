@@ -28,6 +28,7 @@ import { RegisterComponent } from './routes/register';
 import { AppMainComponent } from './app.main';
 import { AppService } from './services/app.service';
 import { TokenComponent } from './routes/token';
+import { DemoSetupComponent } from './routes/demosetup';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { TokenComponent } from './routes/token';
     AppMainComponent,
     RegisterComponent,
     AccountComponent,
-    TokenComponent
+    TokenComponent,
+    DemoSetupComponent
   ],
   imports: [
     BrowserModule,

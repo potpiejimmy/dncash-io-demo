@@ -1,32 +1,22 @@
 <div style="margin: 1.5em;">
-<form [formGroup]="userform" (ngSubmit)="register()">
-    <div fxLayout="column" fxLayoutGap="10px">
+    <div fxLayout="column" fxLayoutGap="1em">
         <span class="verticalcenter">
             <i class="material-icons">perm_device_information</i>
             Register your device
         </span>
         <p>
-            Your device is not registered for Cash Services yet.
+            Your device is not registered for secure cash services yet.
         </p>
         <p>
-            For demonstration purposes, please enter Token API
-            credentials below and click Register.
+            Please click Register to create a unique private key.
         </p>
-        <mat-form-field>
-            <input matInput placeholder="API Key" formControlName="inpapikey" [(ngModel)]="apikey" required>
-        </mat-form-field>
-
-        <mat-form-field>
-            <input matInput placeholder="API Secret" formControlName="inpapisecret" [(ngModel)]="apisecret" required>
-        </mat-form-field>
+        <button *ngIf="!processing && !pair" mat-raised-button color="primary" (click)="register()">Register</button>
     </div>
-    <button *ngIf="!processing && !pair" mat-raised-button color="primary" [disabled]="!userform.valid">Register</button>
-</form>
 
-<div fxLayout="column" fxLayoutGap="10px">
-    <span *ngIf="processing && !pair">Generating 2048-bit RSA key pair</span>
-    <span *ngIf="processing && pair">Registering</span>
-    <mat-spinner *ngIf="processing"></mat-spinner>
-</div>
+    <div fxLayout="column" fxLayoutGap="10px">
+        <span *ngIf="processing && !pair">Generating 2048-bit RSA key pair</span>
+        <span *ngIf="processing && pair">Registering</span>
+        <mat-spinner *ngIf="processing"></mat-spinner>
+    </div>
 
 </div>

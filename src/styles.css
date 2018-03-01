@@ -37,3 +37,7 @@ body {
 .qrcode, .qrcode img {
     width: 100%;
 }
+
+.amountdisp {
+    font-size: 2em;
+}

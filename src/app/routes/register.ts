@@ -4,7 +4,6 @@ import { LocalStorageService } from "angular-2-local-storage";
 import { TokenApiService } from "../services/tokenapi.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
     selector: 'register',
@@ -14,33 +13,23 @@ export class RegisterComponent {
 
     processing: boolean;
     pair: any;
-    apikey: string;
-    apisecret: string;
-    userform: FormGroup;
 
     constructor(
         private localStorageService: LocalStorageService,
         private tokenApiService: TokenApiService,
         public snackBar: MatSnackBar,
-        private router: Router,
-        private fb: FormBuilder,
+        private router: Router
     ) {
-        this.userform = this.fb.group({
-            'inpapikey': new FormControl('', [Validators.required]),
-            'inpapisecret': new FormControl('', [Validators.required])
-        });
     }
 
     register() {
         this.processing = true;
-        setTimeout(() => this.registerDevice(), 200);
+        setTimeout(() => this.registerDevice(), 1000);
     }
 
     registerDevice() {
         this.pair = keypair({bits: 2048});
         console.log(JSON.stringify(this.pair));
-        this.localStorageService.set("DN-API-KEY", this.apikey);
-        this.localStorageService.set("DN-API-SECRET", this.apisecret);
         this.localStorageService.set("keypair", this.pair);
 
         this.tokenApiService.registerDevice().then(res => {
