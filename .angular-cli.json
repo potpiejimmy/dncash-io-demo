@@ -10,6 +10,9 @@
       "assets": [
         "assets",
         "favicon.ico",
+        "manifest.json",
+        "appicon_192x192.png",
+        "appicon_512x512.png",
         "web.config"
       ],
       "index": "index.html",
@@ -19,6 +22,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
+      "serviceWorker": true,
       "styles": [
         "styles.css"
       ],
@@ -56,7 +60,8 @@
   },
   "defaults": {
     "styleExt": "css",
-    "component": {},
+    "component": {
+    },
     "serve": {
       "port": 4201
     }

@@ -1,0 +1,20 @@
+{
+    "name": "dncash.io",
+    "short_name": "dncash.io",
+    "theme_color": "#4CAF50",
+    "background_color": "#f0f8ff",
+    "start_url": "/",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "appicon_192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "appicon_512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

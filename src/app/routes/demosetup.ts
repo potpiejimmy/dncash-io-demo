@@ -45,11 +45,15 @@ export class DemoSetupComponent implements OnInit {
             // new api credentials, (re-)register device:
             this.localStorageService.set("DN-API-KEY", this.apikey);
             this.localStorageService.set("DN-API-SECRET", this.apisecret);
-            this.router.navigate(['/register']);
+            this.finish('/register');
         } else {
             // credentials not changed, go to main if already registered:
-            if (uuid) this.router.navigate(['/']);
-            else this.router.navigate(['/register']);
+            if (uuid) this.finish('/');
+            else this.finish('/register');
         }
+    }
+
+    finish(target: string) {
+        this.router.navigate([target], {replaceUrl:true});
     }
 }
