@@ -1,7 +1,7 @@
 {
     "name": "dncash.io",
     "short_name": "dncash.io",
-    "theme_color": "#4CAF50",
+    "theme_color": "#3f51b5",
     "background_color": "#f0f8ff",
     "start_url": "/",
     "display": "standalone",
