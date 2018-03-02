@@ -18,13 +18,8 @@ export class TokenApiService extends AuthHttp {
         return this.post(environment.apiUrl+"devices", {pubkey: this.localStorage.get("keypair")['public']});
     }
 
-    createToken(type: string): Promise<any> {
-        return this.post(environment.apiUrl+"tokens", {
-            amount: 50,
-            symbol: 'EUR',
-            type: type,
-            device_uuid: this.localStorage.get("device-uuid")
-        });
+    createToken(token: any): Promise<any> {
+        return this.post(environment.apiUrl+"tokens", token);
     }
 
     getTokens(): Promise<any> {

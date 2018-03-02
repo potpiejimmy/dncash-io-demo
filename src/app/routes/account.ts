@@ -4,6 +4,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { LocalStorageService } from "angular-2-local-storage";
 import { Router } from "@angular/router";
 import { AppService } from "../services/app.service";
+import * as moment from 'moment';
 
 @Component({
     selector: 'account',
@@ -13,10 +14,10 @@ export class AccountComponent implements OnInit {
 
     uuid: string;
     tokens = [];
-    columns = ['id', 'type', 'amount'];
+    columns = ['created', 'type', 'amount'];
 
     constructor(
-        private localStorageService: LocalStorageService,
+        private localStorage: LocalStorageService,
         private tokenApiService: TokenApiService,
         private appService: AppService,
         private router: Router,
@@ -25,8 +26,8 @@ export class AccountComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        let apikey = this.localStorageService.get("DN-API-KEY");
-        this.uuid = this.localStorageService.get('device-uuid');
+        let apikey = this.localStorage.get("DN-API-KEY");
+        this.uuid = this.localStorage.get('device-uuid');
         if (!apikey) {
             // not set up for demo:
             this.router.navigate(['/setup']);
@@ -40,7 +41,6 @@ export class AccountComponent implements OnInit {
 
     selectRow(row) {
         this.appService.currentToken = row;
-        //this.tokenApiService.deleteToken(row.uuid).then(() => this.refresh());
         this.router.navigate(['/token']);
     }
 
@@ -48,10 +48,31 @@ export class AccountComponent implements OnInit {
         this.tokenApiService.getTokens().then(res => this.tokens = res);
     }
 
-    createToken(type: string) {
-        this.tokenApiService.createToken(type).then(res => {
+    formatDate(token: any): string {
+        return moment(Date.parse(token.created)).format("MM/DD HH:mm");
+    }
+
+    formatAmount(token: any): string {
+        if (token.type == 'CASHOUT')
+            return token.amount + " " + token.symbol;
+        else
+            return "";
+    }
+
+    createCashOut() {
+        this.router.navigate(['/amount']);
+    }
+
+    createCashIn() {
+        this.tokenApiService.createToken({
+            amount: 0,
+            symbol: 'EUR',
+            type: 'CASHIN',
+            device_uuid: this.localStorage.get("device-uuid")
+        }).then(res => {
             console.log(res);
-            this.refresh();
+            this.appService.currentToken = res;
+            this.router.navigate(['token']);
         }).catch(err => {
             this.snackBar.open(err, null, {duration: 5000, verticalPosition: 'top'});
         });

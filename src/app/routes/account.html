@@ -3,10 +3,10 @@
     Your device is registered with device ID {{uuid}}
     </p>
     <div fxLayout="row" fxLayoutGap="1em">
-        <button fxFlex mat-raised-button color="primary" (click)="createToken('CASHOUT')">
+        <button fxFlex mat-raised-button color="primary" (click)="createCashOut()">
             <i class="material-icons">monetization_on</i><br/>CASH OUT
         </button>
-        <button fxFlex mat-raised-button color="primary" (click)="createToken('CASHIN')">
+        <button fxFlex mat-raised-button color="primary" (click)="createCashIn()">
             <i class="material-icons">input</i><br/>CASH IN
         </button>
     </div>
@@ -15,9 +15,9 @@
         <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columns;" (click)="selectRow(row)"></mat-row>
 
-        <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-            <mat-cell *matCellDef="let i"> {{i.id}} </mat-cell>
+        <ng-container matColumnDef="created">
+            <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
+            <mat-cell *matCellDef="let i"> {{formatDate(i)}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="type">
@@ -27,7 +27,7 @@
 
         <ng-container matColumnDef="amount">
             <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
-            <mat-cell *matCellDef="let i"> {{i.amount}} {{i.symbol}} </mat-cell>
+            <mat-cell *matCellDef="let i"> {{formatAmount(i)}} </mat-cell>
         </ng-container>
     </mat-table>
 </div>

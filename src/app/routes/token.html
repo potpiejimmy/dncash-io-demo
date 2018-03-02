@@ -2,19 +2,18 @@
     <div fxLayout="row" fxLayoutGap="1em">
         <a mat-icon-button routerLink="/"><i class="material-icons">keyboard_backspace</i></a>
         <div style="flex: 1 1 auto;"><div class="fullscreencenter amountdisp">
-            {{appService.currentToken && appService.currentToken.amount}}
-            {{appService.currentToken && appService.currentToken.symbol}}
+            {{headerLabel()}}
         </div></div>
         <button mat-icon-button (click)="delete()"><i class="material-icons">delete_forever</i></button>
     </div>
 </div>
 
 <ngx-qrcode 
-        [qrc-value] = "appService.currentToken && appService.currentToken.uuid"
+        [qrc-value] = "qrCodeData()"
         qrc-class = "qrcode"
         qrc-errorCorrectionLevel = "L">
 </ngx-qrcode>
 
 <div style="margin: 1em; text-align: center;">
-    <span>{{appService.currentToken && appService.currentToken.uuid}}</span>
+    <span>{{qrCodeDataInfo()}}</span>
 </div>

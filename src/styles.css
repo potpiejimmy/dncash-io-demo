@@ -41,3 +41,10 @@ body {
 .amountdisp {
     font-size: 2em;
 }
+
+.denomcountdisp {
+    z-index: 2;
+    position: absolute;
+    font-size: 2em;
+    font-weight: bold;
+}

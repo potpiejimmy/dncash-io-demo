@@ -31,6 +31,8 @@ import { AppMainComponent } from './app.main';
 import { AppService } from './services/app.service';
 import { TokenComponent } from './routes/token';
 import { DemoSetupComponent } from './routes/demosetup';
+import { AmountComponent } from './routes/amount';
+import { DenomSelComponent } from './components/denomsel';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { DemoSetupComponent } from './routes/demosetup';
     RegisterComponent,
     AccountComponent,
     TokenComponent,
-    DemoSetupComponent
+    DemoSetupComponent,
+    AmountComponent,
+    DenomSelComponent
   ],
   imports: [
     BrowserModule,
