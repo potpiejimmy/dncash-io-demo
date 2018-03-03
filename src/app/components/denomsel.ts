@@ -14,17 +14,24 @@ export class DenomSelComponent {
 
     count: number = 0;
 
-    plus() {
+    plus(): void {
         this.count++;
         this.updated.emit();
     }
 
-    minus() {
+    minus(): void {
         this.count = Math.max(0, this.count-1);
         this.updated.emit();
     }
 
-    amount() {
+    amount(): number {
         return this.denom * this.count;
+    }
+
+    denomData(): any {
+        return {
+            d: this.denom,
+            c: this.count
+        }
     }
 }

@@ -70,7 +70,6 @@ export class AccountComponent implements OnInit {
             type: 'CASHIN',
             device_uuid: this.localStorage.get("device-uuid")
         }).then(res => {
-            console.log(res);
             this.appService.currentToken = res;
             this.router.navigate(['token']);
         }).catch(err => {

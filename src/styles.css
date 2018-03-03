@@ -47,4 +47,5 @@ body {
     position: absolute;
     font-size: 2em;
     font-weight: bold;
+    text-shadow: 0.05em 0.05em white;
 }

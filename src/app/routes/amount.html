@@ -1,19 +1,18 @@
-<div style="margin: 1em;">
-    <div fxLayout="column" fxLayoutGap="1%">
-        <div class="fullscreencenter">
-            Choose your notes
-        </div>
-        <div class="fullscreencenter amountdisp">
-            {{amount}} {{symbol}}
+<div style="margin: 1em; height: 80%;">
+    <div fxLayout="column" style="height: 100%;">
+        <div fxFlex style="text-align:center;">
+            <span>Choose your desired notes</span>
         </div>
 
-        <denom-sel #sel10  denom="10"  (updated)="update()"></denom-sel>
-        <denom-sel #sel20  denom="20"  (updated)="update()"></denom-sel>
-        <denom-sel #sel50  denom="50"  (updated)="update()"></denom-sel>
-        <denom-sel #sel100 denom="100" (updated)="update()"></denom-sel>
+        <denom-sel fxFlex #sel10  denom="10"  (updated)="update()"></denom-sel>
+        <denom-sel fxFlex #sel20  denom="20"  (updated)="update()"></denom-sel>
+        <denom-sel fxFlex #sel50  denom="50"  (updated)="update()"></denom-sel>
+        <denom-sel fxFlex #sel100 denom="100" (updated)="update()"></denom-sel>
 
-        <p></p>
+        <div fxFlex></div>
 
-        <button mat-raised-button color="primary" (click)="finish()" [disabled]="!valid()">Continue</button>
+        <button fxFlex mat-raised-button color="primary" (click)="finish()" [disabled]="!valid()" style="font-size: 1.5em;">
+            Get {{amount}} {{symbol}}
+        </button>
     </div>
 </div>

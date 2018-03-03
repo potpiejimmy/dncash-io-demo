@@ -17,6 +17,8 @@ export class AmountComponent implements OnInit {
     @ViewChild("sel50")  sel50:  DenomSelComponent
     @ViewChild("sel100") sel100: DenomSelComponent
 
+    denoms;
+
     amount: number = 0;
     symbol: string = 'EUR';
 
@@ -30,18 +32,22 @@ export class AmountComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.denoms = [this.sel10, this.sel20, this.sel50, this.sel100];
     }
 
     update(): void {
-        this.amount = 
-            this.sel10.amount() +
-            this.sel20.amount() +
-            this.sel50.amount() +
-            this.sel100.amount();
+        this.amount = 0;
+        this.denoms.forEach(i => this.amount += i.amount());
     }
 
     valid(): boolean {
         return this.amount > 0;
+    }
+
+    denomData(): Array<any> {
+        let data = [];
+        this.denoms.forEach(i => data.push(i.denomData()));
+        return data;
     }
 
     finish() {
@@ -49,9 +55,11 @@ export class AmountComponent implements OnInit {
             amount: this.amount,
             symbol: this.symbol,
             type: 'CASHOUT',
-            device_uuid: this.localStorage.get("device-uuid")
+            device_uuid: this.localStorage.get("device-uuid"),
+            info: {
+                denomData: this.denomData()
+            }
         }).then(res => {
-            console.log(res);
             this.appService.currentToken = res;
             this.router.navigate(['token']);
         }).catch(err => {

@@ -23,6 +23,7 @@ export class TokenComponent implements OnInit {
 
     ngOnInit(): void {
         if (!this.appService.currentToken) this.finish();
+        console.log(this.appService.currentToken);
         this.decryptToken();
     }
 
