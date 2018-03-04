@@ -13,6 +13,7 @@ import { Buffer } from "buffer";
 export class TokenComponent implements OnInit {
 
     decryptedToken: string;
+    decrypting: boolean = true;
 
     constructor(
         private localStorageService: LocalStorageService,
@@ -24,7 +25,7 @@ export class TokenComponent implements OnInit {
     ngOnInit(): void {
         if (!this.appService.currentToken) this.finish();
         console.log(this.appService.currentToken);
-        this.decryptToken();
+        setTimeout(() => this.decryptToken(), 500);
     }
 
     delete() {
@@ -59,6 +60,7 @@ export class TokenComponent implements OnInit {
         } catch (err) {
             console.log(err);
         }
+        this.decrypting = false;
     }
 
     qrCodeData(): string {
@@ -67,6 +69,7 @@ export class TokenComponent implements OnInit {
     }
 
     qrCodeDataInfo(): string {
+        if (this.decrypting) return "Decrypting...";
         if (!this.decryptedToken) return "Sorry, could not decrypt the token";
         return this.qrCodeData();
     }

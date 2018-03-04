@@ -26,6 +26,11 @@ body {
     align-items: center; /* align vertical */
 }
 
+.horizontalcenter {
+    display: flex;
+    justify-content: center; /* align horizontal */
+}
+
 .marvel-device .screen, .mobile-body {
     background: #f0f8ff;
 }
@@ -48,4 +53,22 @@ body {
     font-size: 2em;
     font-weight: bold;
     text-shadow: 0.05em 0.05em white;
+}
+
+.denomcounttoken {
+    font-size: 0.75em;
+    position: absolute;
+    text-shadow: 0.05em 0.05em white;
+}
+
+.table {
+    display: table;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.table-cell {
+    display: table-cell;
 }
