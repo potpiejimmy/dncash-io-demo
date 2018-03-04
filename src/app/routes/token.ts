@@ -51,7 +51,10 @@ export class TokenComponent implements OnInit {
     decryptToken(): void {
         try {
             let buf = new Buffer(this.token().secure_code, 'base64');
-            let res = crypto.privateDecrypt(this.localStorageService.get("keypair")['private'], buf);
+            let res = crypto.privateDecrypt({
+                key: this.localStorageService.get("keypair")['private'],
+                padding: 1 // constants.RSA_PKCS1_PADDING
+            }, buf);
             this.decryptedToken = res.toString('hex');
         } catch (err) {
             console.log(err);
