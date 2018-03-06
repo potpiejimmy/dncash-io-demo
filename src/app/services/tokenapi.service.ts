@@ -15,7 +15,10 @@ export class TokenApiService extends AuthHttp {
     }
 
     registerDevice(): Promise<any> {
-        return this.post(environment.apiUrl+"devices", {pubkey: this.localStorage.get("keypair")['public']});
+        return this.post(environment.apiUrl+"devices", {
+            pubkey: this.localStorage.get("keypair")['public'],
+            refname: navigator.userAgent.substr(0,36)
+        });
     }
 
     createToken(token: any): Promise<any> {

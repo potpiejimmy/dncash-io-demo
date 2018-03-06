@@ -38,7 +38,7 @@ export class TokenComponent implements OnInit {
     headerLabel() {
         let t = this.token();
         if (t.type == 'CASHOUT') {
-            return t.amount + " " + t.symbol;
+            return t.amount/100 + " " + t.symbol;
         } else {
             return "Cash In";
         }

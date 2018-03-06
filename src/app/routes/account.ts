@@ -56,7 +56,7 @@ export class AccountComponent implements OnInit {
 
     formatAmount(token: any): string {
         if (token.type == 'CASHOUT')
-            return token.amount + " " + token.symbol;
+            return token.amount/100 + " " + token.symbol;
         else
             return "";
     }
