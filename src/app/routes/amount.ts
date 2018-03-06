@@ -22,6 +22,8 @@ export class AmountComponent implements OnInit {
     amount: number = 0;
     symbol: string = 'EUR';
 
+    processing: boolean;
+
     constructor(
         public appService: AppService,
         private tokenApiService: TokenApiService,
@@ -51,6 +53,7 @@ export class AmountComponent implements OnInit {
     }
 
     finish() {
+        this.processing = true;
         this.tokenApiService.createToken({
             amount: this.amount,
             symbol: this.symbol,
@@ -63,6 +66,7 @@ export class AmountComponent implements OnInit {
             this.appService.currentToken = res;
             this.router.navigate(['token']);
         }).catch(err => {
+            this.processing = false;
             this.snackBar.open(err, null, {duration: 5000, verticalPosition: 'top'});
         });
     }

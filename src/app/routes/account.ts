@@ -45,7 +45,9 @@ export class AccountComponent implements OnInit {
     }
 
     refresh() {
-        this.tokenApiService.getTokens().then(res => this.tokens = res);
+        this.tokenApiService.getTokens().then(res => this.tokens = res).catch(err => {
+            this.snackBar.open(err, null, {duration: 5000, verticalPosition: 'top'});
+        });
     }
 
     formatDate(token: any): string {
@@ -65,7 +67,7 @@ export class AccountComponent implements OnInit {
 
     createCashIn() {
         this.tokenApiService.createToken({
-            amount: 0,
+            amount: 100,
             symbol: 'EUR',
             type: 'CASHIN',
             device_uuid: this.localStorage.get("device-uuid")

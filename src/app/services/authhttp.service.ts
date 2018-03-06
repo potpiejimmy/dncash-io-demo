@@ -48,7 +48,7 @@ export class AuthHttp {
 
     private handleError(error: any, me: AuthHttp): Promise<any> {
         console.error('An error occurred', JSON.stringify(error)); // XXX for debugging purposes
-        if (!error.status) error.message = "Sorry, " + environment.apiUrl + " cannot be reached.";
-        return Promise.reject(error.error.message || error.message || error);
+        if (!error.status || error.status==504) error.message = "Sorry, " + environment.apiUrl + " cannot be reached.";        
+        return Promise.reject((error.error ? error.error.message : null) || error.message || error);
     }
 }

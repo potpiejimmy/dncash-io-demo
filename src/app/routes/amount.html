@@ -11,7 +11,7 @@
 
         <div fxFlex></div>
 
-        <button mat-raised-button color="primary" (click)="finish()" [disabled]="!valid()" style="font-size: 1.5em; min-height: 2em;">
+        <button mat-raised-button color="primary" (click)="finish()" [disabled]="!valid() || processing" style="font-size: 1.5em; min-height: 2em;">
             Get {{amount}} {{symbol}}
         </button>
     </div>
