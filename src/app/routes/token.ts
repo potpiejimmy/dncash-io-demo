@@ -75,6 +75,6 @@ export class TokenComponent implements OnInit {
     }
 
     finish() {
-        this.router.navigate(['/']);
+        this.router.navigate(['/'], { replaceUrl: true });
     }
 }

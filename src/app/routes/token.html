@@ -1,6 +1,6 @@
 <div style="margin: 1em;">
     <div fxLayout="row" fxLayoutGap="1em">
-        <a mat-icon-button routerLink="/"><i class="material-icons">chevron_left</i></a>
+        <a mat-icon-button (click)="finish()"><i class="material-icons">chevron_left</i></a>
         <div style="flex: 1 1 auto;"><div class="fullscreencenter amountdisp">
             {{headerLabel()}}
         </div></div>

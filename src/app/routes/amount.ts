@@ -64,7 +64,7 @@ export class AmountComponent implements OnInit {
             }
         }).then(res => {
             this.appService.currentToken = res;
-            this.router.navigate(['token']);
+            this.router.navigate(['token'], { replaceUrl: true });
         }).catch(err => {
             this.processing = false;
             this.snackBar.open(err, null, {duration: 5000, verticalPosition: 'top'});
