@@ -19,11 +19,25 @@
     </div>
 </div>
 
-<ngx-qrcode 
+<ngx-qrcode *ngIf="!scanning"
         [qrc-value] = "qrCodeData()"
         qrc-class = "qrcode"
         qrc-errorCorrectionLevel = "L">
 </ngx-qrcode>
+<div *ngIf="scanning">
+    <p class="horizontalcenter">
+        Scan the QR code on the ATM:
+    </p>
+    <qr-scanner 
+        [debug]="false"
+        [updateTime]="500"
+        [stopAfterScan]="true">
+    </qr-scanner>
+</div>
+
+<div class="horizontalcenter" *ngIf="!decrypting && !scanning">
+    <a [routerLink] (click)="scan()">No scanner on ATM?</a>
+</div>
 
 <div class="horizontalcenter" *ngIf="decrypting">
     <mat-spinner></mat-spinner>

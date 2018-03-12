@@ -6,4 +6,5 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000/dnapi/token/v1/',
+  mobileApiUrl: 'http://localhost:3000/dnapi/mobile/v1/'
 };

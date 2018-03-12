@@ -20,6 +20,7 @@ import { MatTableModule } from '@angular/material/table';
 // Externals
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { NgQrScannerModule } from 'angular2-qrscanner';
 
 import { AppComponent } from './app.component';
 import { AuthHttp } from './services/authhttp.service';
@@ -33,6 +34,7 @@ import { TokenComponent } from './routes/token';
 import { DemoSetupComponent } from './routes/demosetup';
 import { AmountComponent } from './routes/amount';
 import { DenomSelComponent } from './components/denomsel';
+import { MobileApiService } from './services/mobileapi.service';
 
 
 @NgModule({
@@ -65,6 +67,7 @@ import { DenomSelComponent } from './components/denomsel';
     MatTableModule,
     // Externals:
     NgxQRCodeModule,
+    NgQrScannerModule,
     LocalStorageModule.withConfig({ prefix: 'dncashio-demo', storageType: 'localStorage' }), // or sessionStorage
     // App:
     AppRoutes
@@ -72,7 +75,8 @@ import { DenomSelComponent } from './components/denomsel';
   providers: [
     AppService,
     AuthHttp,
-    TokenApiService
+    TokenApiService,
+    MobileApiService
   ],
   bootstrap: [AppComponent]
 })
