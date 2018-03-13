@@ -8,6 +8,7 @@ import { Buffer } from "buffer";
 import { QrScannerComponent } from "angular2-qrscanner";
 import { MobileApiService } from "../services/mobileapi.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { environment } from "../../environments/environment";
 
 @Component({
     selector: 'token',
@@ -16,6 +17,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class TokenComponent implements OnInit {
 
     qrScannerComponent: QrScannerComponent;
+    qrCanvasWidth: number;
+    qrCanvasHeight: number;
 
     decryptedToken: string;
     decrypting: boolean = true;
@@ -36,7 +39,10 @@ export class TokenComponent implements OnInit {
         private mobileApiService: MobileApiService,
         private router: Router,
         public snackBar: MatSnackBar
-    ) {}
+    ) {
+        this.qrCanvasWidth = environment.production ? 240 : 320;
+        this.qrCanvasHeight = environment.production ? 320 : 240;
+    }
 
     ngOnInit(): void {
         if (!this.appService.currentToken) this.finish();

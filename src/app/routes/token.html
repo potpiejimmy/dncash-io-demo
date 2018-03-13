@@ -28,15 +28,21 @@
     <p class="horizontalcenter">
         Scan the QR code on the ATM:
     </p>
-    <qr-scanner 
-        [debug]="false"
-        [updateTime]="500"
-        [stopAfterScan]="true">
-    </qr-scanner>
+    <div class="horizontalcenter">
+        <div [style.width.px]="qrCanvasWidth" [style.height.px]="qrCanvasHeight">
+            <qr-scanner 
+                [debug]="false"
+                [updateTime]="500"
+                [canvasWidth]="qrCanvasWidth"
+                [canvasHeight]="qrCanvasHeight"
+                [stopAfterScan]="true">
+            </qr-scanner>
+        </div>
+    </div>
 </div>
 
 <div class="horizontalcenter" *ngIf="!decrypting && !scanning">
-    <a [routerLink] (click)="scan()">No scanner on ATM?</a>
+    <a [routerLink] (click)="scan()">ATM without scanner?</a>
 </div>
 
 <div class="horizontalcenter" *ngIf="decrypting">
