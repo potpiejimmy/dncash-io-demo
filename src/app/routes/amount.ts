@@ -59,6 +59,7 @@ export class AmountComponent implements OnInit {
             symbol: this.symbol,
             type: 'CASHOUT',
             device_uuid: this.localStorage.get("device-uuid"),
+            expires: Date.now() + 300000, // expires in 5 minutes
             info: {
                 denomData: this.denomData()
             }

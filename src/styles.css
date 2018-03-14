@@ -43,8 +43,16 @@ body {
     width: 100%;
 }
 
+.amountdisp, .amountdispsub {
+    text-align: center;
+}
+
 .amountdisp {
-    font-size: 2em;
+    font-size: 1.5em;
+}
+
+.amountdispsub {
+    font-size: 0.75em;
 }
 
 .denomcountdisp {
