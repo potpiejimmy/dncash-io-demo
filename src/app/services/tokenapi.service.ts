@@ -5,8 +5,15 @@ import { environment } from "../../environments/environment";
 import { LocalStorageService } from "angular-2-local-storage";
 import { HttpClient } from "@angular/common/http";
 
+import { Observer } from "rxjs/Observer";
+import { Observable } from "rxjs/Observable";
+import { Buffer } from "buffer";
+
 @Injectable()
 export class TokenApiService extends AuthHttp {
+
+    socket: WebSocket;
+    observer: Observer<any>;
 
     constructor(
         private httpClient: HttpClient,
@@ -29,7 +36,29 @@ export class TokenApiService extends AuthHttp {
         return this.get(environment.apiUrl+"tokens?device_uuid="+this.localStorage.get("device-uuid"));
     }
 
+    getToken(uid: string): Promise<any> {
+        return this.get(environment.apiUrl+"tokens/"+uid);
+    }
+
     deleteToken(uid: number): Promise<any> {
         return this.delete(environment.apiUrl+"tokens/"+uid+"?device_uuid="+this.localStorage.get("device-uuid"));
+    }
+
+    subscribeChanges(): Observable<any> {
+        if (!this.socket) {
+            this.socket = new WebSocket(environment.apiUrlWs+"tokenchange/"+Buffer.from(this.localStorage.get("DN-API-KEY").toString(), 'base64').toString('hex'));
+            this.socket.onmessage = data => this.getToken(JSON.parse(data.data).uuid).then(t => {
+                if (this.localStorage.get("device-uuid") == t.device_uuid) this.observer.next(t);
+            });
+            this.socket.onclose = () => this.observer.error("closed");
+            this.socket.onerror = err => this.observer.error(err);
+        }
+        return new Observable(observer => this.observer = observer);
+    }
+
+    unsubscribeChanges(): void {
+        this.observer.complete();
+        this.socket.close();
+        this.socket = null;
     }
 }
