@@ -13,10 +13,11 @@
         <button *ngIf="!processing && !pair" mat-raised-button color="primary" (click)="register()">Register</button>
     </div>
 
-    <div fxLayout="column" fxLayoutGap="10px">
-        <span *ngIf="processing && !pair">Generating 2048-bit RSA key pair</span>
-        <span *ngIf="processing && pair">Registering</span>
-        <mat-spinner *ngIf="processing"></mat-spinner>
+    <div class="horizontalcenter" style="margin: 2em;" *ngIf="processing">
+        <mat-spinner></mat-spinner>
     </div>
-
+    <div class="horizontalcenter" *ngIf="processing">
+        <span *ngIf="!pair">Generating 2048-bit RSA key pair</span>
+        <span *ngIf="pair">Registering</span>
+    </div>    
 </div>
