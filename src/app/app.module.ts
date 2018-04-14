@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { NgQrScannerModule } from 'angular2-qrscanner';
+import { NgxBarcodeModule } from 'ngx-barcode';
 import { PushNotificationsModule } from 'ng-push';
 
 import { AppComponent } from './app.component';
@@ -69,6 +70,7 @@ import { MobileApiService } from './services/mobileapi.service';
     // Externals:
     NgxQRCodeModule,
     NgQrScannerModule,
+    NgxBarcodeModule,
     PushNotificationsModule,
     LocalStorageModule.withConfig({ prefix: 'dncashio-demo', storageType: 'localStorage' }), // or sessionStorage
     // App:

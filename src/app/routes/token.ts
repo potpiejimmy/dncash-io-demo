@@ -24,6 +24,7 @@ export class TokenComponent implements OnInit, OnDestroy {
     decryptedToken: string;
     decrypting: boolean = true;
     scanning: boolean;
+    ean: boolean;
 
     expirationString: string;
     updateExpirationTimeout: any;
@@ -124,6 +125,14 @@ export class TokenComponent implements OnInit, OnDestroy {
         if (this.decrypting) return "Decrypting...";
         if (!this.decryptedToken) return "Sorry, could not decrypt the token";
         return this.qrCodeData();
+    }
+
+    eanCodeData(): string {
+        return this.token().plain_code; //"" + (Math.pow(10,11) + parseInt(this.token().plain_code));
+    }
+
+    toggleCodeType(): void {
+        this.ean = !this.ean;
     }
 
     buildExpirationString(): void {

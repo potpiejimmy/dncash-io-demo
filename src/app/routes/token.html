@@ -22,11 +22,20 @@
     </div>
 </div>
 
-<ngx-qrcode *ngIf="!scanning"
+<ngx-qrcode *ngIf="!scanning && !ean"
         [qrc-value] = "qrCodeData()"
         qrc-class = "qrcode"
-        qrc-errorCorrectionLevel = "M">
+        qrc-errorCorrectionLevel = "M"
+        (click)="toggleCodeType()">
 </ngx-qrcode>
+<div class="horizontalcenter" *ngIf="!scanning && ean">
+    <ngx-barcode
+        bc-width="3"
+        [bc-value]="eanCodeData()"
+        [bc-display-value]="true"
+        (click)="toggleCodeType()">
+    </ngx-barcode>
+</div>
 <div *ngIf="scanning">
     <p class="horizontalcenter">
         Scan the QR code on the ATM:
@@ -45,7 +54,7 @@
 </div>
 
 <div class="horizontalcenter" *ngIf="!decrypting && !scanning">
-    <a [routerLink] (click)="scan()">ATM without scanner?</a>
+    <a [routerLink] (click)="scan()">Scan ATM code</a>
 </div>
 
 <div class="horizontalcenter" *ngIf="decrypting">
