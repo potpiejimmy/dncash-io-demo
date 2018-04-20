@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://doogetha.com/dnapi/token/v1/',
-  apiUrlWs: 'wss://doogetha.com/dnapi/tokenws/v1/',
-  mobileApiUrl: 'https://doogetha.com/dnapi/mobile/v1/'
+  apiUrl: 'https://dncashio.apili.xyz/dnapi/token/v1/',
+  apiUrlWs: 'wss://dncashio.apili.xyz/dnapi/tokenws/v1/',
+  mobileApiUrl: 'https://dncashio.apili.xyz/dnapi/mobile/v1/'
 };

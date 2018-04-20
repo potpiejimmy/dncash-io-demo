@@ -25,15 +25,14 @@
 <ngx-qrcode *ngIf="!scanning && !ean"
         [qrc-value] = "qrCodeData()"
         qrc-class = "qrcode"
-        qrc-errorCorrectionLevel = "M"
-        (click)="toggleCodeType()">
+        qrc-errorCorrectionLevel = "M">
 </ngx-qrcode>
 <div class="horizontalcenter" *ngIf="!scanning && ean">
     <ngx-barcode
-        bc-width="3"
+        bc-width="4"
+        bc-height="200"
         [bc-value]="eanCodeData()"
-        [bc-display-value]="true"
-        (click)="toggleCodeType()">
+        [bc-display-value]="true">
     </ngx-barcode>
 </div>
 <div *ngIf="scanning">

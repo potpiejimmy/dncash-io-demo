@@ -21,7 +21,7 @@ export class TokenComponent implements OnInit, OnDestroy {
     qrCanvasWidth: number;
     qrCanvasHeight: number;
 
-    decryptedToken: string;
+    decryptedToken: Buffer;
     decrypting: boolean = true;
     scanning: boolean;
     ean: boolean;
@@ -105,20 +105,20 @@ export class TokenComponent implements OnInit, OnDestroy {
         if (!this.appService.currentToken) return;
         try {
             let buf = new Buffer(this.token().secure_code, 'base64');
-            let res = crypto.privateDecrypt({
+            this.decryptedToken = crypto.privateDecrypt({
                 key: this.localStorageService.get("keypair")['private'],
                 padding: 1 // constants.RSA_PKCS1_PADDING
             }, buf);
-            this.decryptedToken = res.toString('hex');
         } catch (err) {
             console.log(err);
         }
+        this.ean = this.token().plain_code;
         this.decrypting = false;
     }
 
     qrCodeData(): string {
         if (!this.decryptedToken) return null;
-        return this.token().uuid + this.decryptedToken;
+        return this.token().uuid + this.decryptedToken.toString('hex');
     }
 
     qrCodeDataInfo(): string {
@@ -128,11 +128,7 @@ export class TokenComponent implements OnInit, OnDestroy {
     }
 
     eanCodeData(): string {
-        return this.token().plain_code; //"" + (Math.pow(10,11) + parseInt(this.token().plain_code));
-    }
-
-    toggleCodeType(): void {
-        this.ean = !this.ean;
+        return this.token().plain_code + this.decryptedToken.toString();
     }
 
     buildExpirationString(): void {
