@@ -46,7 +46,7 @@ export class TokenApiService extends AuthHttp {
 
     subscribeChanges(): Observable<any> {
         if (!this.socket) {
-            this.socket = new WebSocket(environment.apiUrlWs+"tokenchange/"+Buffer.from(this.localStorage.get("DN-API-KEY").toString(), 'base64').toString('hex'));
+            this.socket = new WebSocket(environment.apiUrlWs+"tokenchange/"+this.localStorage.get("DN-API-KEY"));
             this.socket.onmessage = data => this.getToken(JSON.parse(data.data).uuid).then(t => {
                 if (this.localStorage.get("device-uuid") == t.device_uuid) this.observer.next(t);
             });
