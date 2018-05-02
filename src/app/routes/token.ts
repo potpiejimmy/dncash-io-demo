@@ -144,9 +144,14 @@ export class TokenComponent implements OnInit, OnDestroy {
         this.scanning = true;
     }
 
-    qrCodeScanned(result: string) {
-        console.log(result);
-        this.mobileApiService.sendTrigger(result, this.qrCodeData()).then(() => {
+    qrCodeScanned(triggercode: string) {
+        console.log(triggercode);
+        let radiocode = this.qrCodeData();
+        // create signature for triggercode+radiocode
+        let sign = crypto.createSign("RSA-SHA256");
+        sign.write(triggercode+radiocode);
+        let signature = sign.sign(this.localStorageService.get("keypair")['private']).toString('base64');
+        this.mobileApiService.sendTrigger(triggercode, radiocode, signature).then(() => {
             this.finish();
         }).catch(err => {
             console.log(err);
