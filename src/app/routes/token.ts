@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, NgZone, OnDestroy } from "@angular/core";
 import { AppService } from "../services/app.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { TokenApiService } from "../services/tokenapi.service";
 import * as crypto from "crypto-browserify";
 import { LocalStorageService } from "angular-2-local-storage";
@@ -29,6 +29,8 @@ export class TokenComponent implements OnInit, OnDestroy {
     expirationString: string;
     updateExpirationTimeout: any;
 
+    triggercodeQueryParam: string;
+
     @ViewChild(QrScannerComponent) set scannerComponent(scannerComponent: QrScannerComponent) {
         if (scannerComponent) {
             this.qrScannerComponent = scannerComponent;
@@ -43,6 +45,7 @@ export class TokenComponent implements OnInit, OnDestroy {
         private tokenApiService: TokenApiService,
         private mobileApiService: MobileApiService,
         private router: Router,
+        private route: ActivatedRoute,
         public snackBar: MatSnackBar
     ) {
         this.qrCanvasWidth = environment.production ? 240 : 320;
@@ -50,14 +53,28 @@ export class TokenComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        if (!this.appService.currentToken) this.finish();
-        console.log(this.appService.currentToken);
-        setTimeout(() => this.decryptToken(), 500);
-        this.buildExpirationString();
+        // fetch triggercode if passed via query param
+        this.route.queryParams.subscribe(params => this.triggercodeQueryParam = params.triggercode);
+        if (!this.appService.currentToken) {
+            // no token set from main UI, try to load the first available token if this route is directly invoked
+            this.tokenApiService.getTokens().then(res => {
+                this.appService.currentToken = res[0];
+                this.initializeToken();
+            });
+        } else {
+            this.initializeToken();
+        }
     }
 
     ngOnDestroy(): void {
         clearTimeout(this.updateExpirationTimeout);
+    }
+
+    initializeToken(): void {
+        if (!this.appService.currentToken) this.finish();
+        console.log(this.appService.currentToken);
+        setTimeout(() => this.decryptToken(), 200);
+        this.buildExpirationString();
     }
 
     setupCamera(): void {
@@ -114,6 +131,8 @@ export class TokenComponent implements OnInit, OnDestroy {
         }
         this.ean = this.token().plain_code;
         this.decrypting = false;
+        // trigger code already available (passed in as param?)
+        if (this.triggercodeQueryParam) this.qrCodeScanned(this.triggercodeQueryParam);
     }
 
     qrCodeData(): string {
