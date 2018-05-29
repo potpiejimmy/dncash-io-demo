@@ -1,0 +1,26 @@
+<!-- Note: serve this file from a different domain than dncashdemo.dnpv-serv.de 
+     so that the PWA is invoked instead of staying in the browser -->
+<html>
+    <body><a id="lll"></a></body>
+    <script type="text/javascript">
+
+        // parse url params:
+        var urlParams;
+        (window.onpopstate = function () {
+            var match,
+                pl     = /\+/g,
+                search = /([^&=]+)=?([^&]*)/g,
+                decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                query  = window.location.search.substring(1);
+
+            urlParams = {};
+            while (match = search.exec(query))
+            urlParams[decode(match[1])] = decode(match[2]);
+        })();
+
+        // launch dncash.io demo app
+        var lll = document.getElementById('lll');
+        lll.href = "https://dncashdemo.dnpv-serv.de/token?triggercode=" + urlParams['triggercode'];
+        lll.click();
+    </script>
+</html>

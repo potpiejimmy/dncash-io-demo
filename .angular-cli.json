@@ -13,7 +13,8 @@
         "manifest.json",
         "appicon_192x192.png",
         "appicon_512x512.png",
-        "web.config"
+        "web.config",
+        "dncashdemo.html"
       ],
       "index": "index.html",
       "main": "main.ts",

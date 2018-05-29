@@ -141,7 +141,7 @@ export class TokenComponent implements OnInit, OnDestroy {
     }
 
     qrCodeDataInfo(): string {
-        if (this.decrypting) return "Decrypting...";
+        if (this.decrypting) return "";
         if (!this.decryptedToken) return "Sorry, could not decrypt the token";
         return this.qrCodeData();
     }
