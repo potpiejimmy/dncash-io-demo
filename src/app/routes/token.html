@@ -21,7 +21,13 @@
         </div>
     </div>
 </div>
-
+<div class="horizontalright" style="margin-right: 20px; margin-bottom: 5px;" *ngIf="!scanning && eanexists">
+    <mat-slide-toggle 
+        color = 'primary'
+        [checked] = "!ean"
+        (change) = "toggleean()">
+    QR</mat-slide-toggle>
+</div>
 <ngx-qrcode *ngIf="!scanning && !ean"
         [qrc-value] = "qrCodeData()"
         qrc-class = "qrcode"

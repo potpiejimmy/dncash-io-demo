@@ -24,6 +24,7 @@ export class TokenComponent implements OnInit, OnDestroy {
     decryptedToken: Buffer;
     decrypting: boolean = true;
     scanning: boolean;
+    eanexists: boolean;
     ean: boolean;
 
     expirationString: string;
@@ -130,6 +131,7 @@ export class TokenComponent implements OnInit, OnDestroy {
             console.log(err);
         }
         this.ean = this.token().plain_code;
+        this.eanexists = this.ean;
         this.decrypting = false;
         // trigger code already available (passed in as param?)
         if (this.triggercodeQueryParam) this.qrCodeScanned(this.triggercodeQueryParam);
@@ -176,6 +178,10 @@ export class TokenComponent implements OnInit, OnDestroy {
             console.log(err);
             this.snackBar.open("Invalid trigger code.", null, {duration: 5000, verticalPosition: 'top'});
         });
+    }
+
+    toggleean() {
+        this.ean = !this.ean;
     }
 
     finish() {

@@ -31,6 +31,11 @@ body {
     justify-content: center; /* align horizontal */
 }
 
+.horizontalright {
+    display: flex;
+    justify-content: right; /* align horizontal */
+}
+
 .marvel-device .screen, .mobile-body {
     background: #f0f8ff;
 }

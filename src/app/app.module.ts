@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 // Externals
 import { LocalStorageModule } from 'angular-2-local-storage';
@@ -67,6 +68,7 @@ import { MobileApiService } from './services/mobileapi.service';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatTableModule,
+    MatSlideToggleModule,
     // Externals:
     NgxQRCodeModule,
     NgQrScannerModule,
