@@ -7,6 +7,6 @@
         </div>
         <img fxFlex [src]="'assets/euro'+denom/100+'.png'" width="100%" height="100%"/>
     </div>
-    <button mat-icon-button (click)="plus()"><i class="material-icons">add_circle_outline</i></button>
+    <button mat-icon-button (click)="plus()" [disabled]="count>=5"><i class="material-icons">add_circle_outline</i></button>
     <span></span>
 </div>

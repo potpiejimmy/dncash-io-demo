@@ -15,7 +15,7 @@ export class DenomSelComponent {
     count: number = 0;
 
     plus(): void {
-        this.count++;
+        this.count = Math.min(5, this.count+1);
         this.updated.emit();
     }
 

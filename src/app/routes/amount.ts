@@ -12,10 +12,10 @@ import { LocalStorageService } from "angular-2-local-storage";
 })
 export class AmountComponent implements OnInit {
 
+    @ViewChild("sel5")   sel5:   DenomSelComponent
     @ViewChild("sel10")  sel10:  DenomSelComponent
     @ViewChild("sel20")  sel20:  DenomSelComponent
     @ViewChild("sel50")  sel50:  DenomSelComponent
-    @ViewChild("sel100") sel100: DenomSelComponent
 
     denoms;
 
@@ -34,7 +34,7 @@ export class AmountComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.denoms = [this.sel10, this.sel20, this.sel50, this.sel100];
+        this.denoms = [this.sel5,this.sel10, this.sel20, this.sel50];
     }
 
     update(): void {
