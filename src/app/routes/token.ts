@@ -164,6 +164,11 @@ export class TokenComponent implements OnInit, OnDestroy {
     }
 
     qrCodeScanned(triggercode: string) {
+        let triggerCodeParam = "triggercode=";
+        let triggerCodeParamIx = triggercode.indexOf(triggerCodeParam);
+        if (triggerCodeParamIx>=0) {
+            triggercode = triggercode.substr(triggerCodeParamIx + triggerCodeParam.length);
+        }
         console.log(triggercode);
         let radiocode = this.qrCodeData();
         // create signature for triggercode+radiocode
