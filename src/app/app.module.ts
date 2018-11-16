@@ -24,6 +24,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { NgQrScannerModule } from 'angular2-qrscanner';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { PushNotificationsModule } from 'ng-push';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { AuthHttp } from './services/authhttp.service';
@@ -75,6 +76,7 @@ import { MobileApiService } from './services/mobileapi.service';
     NgxBarcodeModule,
     PushNotificationsModule,
     LocalStorageModule.withConfig({ prefix: 'dncashio-demo', storageType: 'localStorage' }), // or sessionStorage
+    ToastrModule.forRoot({ preventDuplicates: true }),
     // App:
     AppRoutes
   ],

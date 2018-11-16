@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { TokenApiService } from "../services/tokenapi.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { LocalStorageService } from "angular-2-local-storage";
 import { Router } from "@angular/router";
 import { AppService } from "../services/app.service";
 import * as moment from 'moment';
+import { ToastrService } from "ngx-toastr";
 
 @Component({
     selector: 'account',
@@ -21,7 +21,7 @@ export class AccountComponent implements OnInit {
         private tokenApiService: TokenApiService,
         private appService: AppService,
         private router: Router,
-        public snackBar: MatSnackBar
+        public toast: ToastrService
     ) {
     }
 
@@ -46,7 +46,7 @@ export class AccountComponent implements OnInit {
 
     refresh() {
         this.tokenApiService.getTokens().then(res => this.tokens = res).catch(err => {
-            this.snackBar.open(err, null, {duration: 5000, verticalPosition: 'top'});
+            this.toast.error(err, null, {timeOut: 5000, positionClass: 'toast-bottom-center'});
         });
     }
 
@@ -75,7 +75,7 @@ export class AccountComponent implements OnInit {
             this.appService.currentToken = res;
             this.router.navigate(['token']);
         }).catch(err => {
-            this.snackBar.open(err, null, {duration: 5000, verticalPosition: 'top'});
+            this.toast.error(err, null, {timeOut: 5000, positionClass: 'toast-bottom-center'} );
         });
     }
 }
