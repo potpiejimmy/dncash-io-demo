@@ -7,8 +7,8 @@ import { LocalStorageService } from "angular-2-local-storage";
 import { Buffer } from "buffer";
 import { QrScannerComponent } from "angular2-qrscanner";
 import { MobileApiService } from "../services/mobileapi.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { environment } from "../../environments/environment";
+import { ToastrService } from "ngx-toastr";
 import * as moment from 'moment';
 
 @Component({
@@ -46,7 +46,7 @@ export class TokenComponent implements OnInit, OnDestroy {
         private mobileApiService: MobileApiService,
         private router: Router,
         private route: ActivatedRoute,
-        public snackBar: MatSnackBar
+        public toast: ToastrService
     ) {
         this.qrCanvasWidth = environment.production ? 240 : 320;
         this.qrCanvasHeight = environment.production ? 320 : 240;
@@ -179,7 +179,7 @@ export class TokenComponent implements OnInit, OnDestroy {
             this.finish();
         }).catch(err => {
             console.log(err);
-            this.snackBar.open("Invalid trigger code.", null, {duration: 5000, verticalPosition: 'top'});
+            this.toast.warning("Invalid trigger code.", null, {timeOut: 5000, positionClass: 'toast-bottom-center'});
         });
     }
 

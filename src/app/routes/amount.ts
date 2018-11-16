@@ -3,8 +3,8 @@ import { DenomSelComponent } from "../components/denomsel";
 import { AppService } from "../services/app.service";
 import { TokenApiService } from "../services/tokenapi.service";
 import { Router } from "@angular/router";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { LocalStorageService } from "angular-2-local-storage";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
     selector: 'amount',
@@ -29,7 +29,7 @@ export class AmountComponent implements OnInit {
         private tokenApiService: TokenApiService,
         private localStorage: LocalStorageService,
         private router: Router,
-        public snackBar: MatSnackBar
+        public toast: ToastrService
     ) {        
     }
 
@@ -59,7 +59,7 @@ export class AmountComponent implements OnInit {
             symbol: this.symbol,
             type: 'CASHOUT',
             device_uuid: this.localStorage.get("device-uuid"),
-            expires: Date.now() + 300000, // expires in 5 minutes
+            expires: Date.now() + 3600000, // expires in 1 hour
             info: {
                 denomData: this.denomData()
             }
@@ -68,7 +68,7 @@ export class AmountComponent implements OnInit {
             this.router.navigate(['token'], { replaceUrl: true });
         }).catch(err => {
             this.processing = false;
-            this.snackBar.open(err, null, {duration: 5000, verticalPosition: 'top'});
+            this.toast.error(err, null, {timeOut: 5000, positionClass: 'toast-bottom-center'});
         });
     }
 }

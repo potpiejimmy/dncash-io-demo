@@ -3,6 +3,7 @@ import * as keypair from 'keypair';
 import { LocalStorageService } from "angular-2-local-storage";
 import { TokenApiService } from "../services/tokenapi.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 
 @Component({
@@ -17,7 +18,8 @@ export class RegisterComponent {
     constructor(
         private localStorageService: LocalStorageService,
         private tokenApiService: TokenApiService,
-        public snackBar: MatSnackBar,
+        //public snackBar: MatSnackBar,
+        public toast: ToastrService,
         private router: Router
     ) {
     }
@@ -40,7 +42,8 @@ export class RegisterComponent {
             console.log("Registration failed: " + err);
             this.pair = null;
             this.processing = false;
-            this.snackBar.open(err, null, {duration: 5000, verticalPosition: 'top'});
+            //this.snackBar.open(err, null, {duration: 5000, verticalPosition: 'top'});
+            this.toast.error(err, null, {timeOut: 5000, positionClass: 'toast-bottom-center'} );
         });
     }
 

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { TokenApiService } from "./services/tokenapi.service";
 import { PushNotificationsService } from "ng-push";
 import { Router } from "@angular/router";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
     selector: 'app-main',
@@ -14,7 +14,7 @@ export class AppMainComponent implements OnInit {
         private tokenApiService: TokenApiService,
         private pushNotificationService: PushNotificationsService,
         private router: Router,
-        public snackBar: MatSnackBar
+        public toast: ToastrService
     ) {}
 
     ngOnInit(): void {
@@ -34,7 +34,18 @@ export class AppMainComponent implements OnInit {
                 //     err => console.log(err)
                 // );
                 this.router.navigate(['/'], { replaceUrl: true });
-                this.snackBar.open("Token update, status " + token.state, null, {duration: 5000, verticalPosition: 'top'});
+                switch (token.state) {
+                    case 'LOCKED':
+                    case 'CANCELED':
+                        this.toast.info("Token state " + token.state, null, {timeOut: 2000, positionClass: 'toast-bottom-center'});
+                        break;
+                    case 'COMPLETED':
+                        this.toast.success("Token state " + token.state, null, {timeOut: 4000, positionClass: 'toast-bottom-center'});
+                        break;
+                    default:
+                    this.toast.error("Token update, status " + token.state, null, {timeOut: 4000, positionClass: 'toast-bottom-center'});
+                }
+                
             }
         }, err => {
             console.log("Websocket: " + err);
