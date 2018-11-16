@@ -37,6 +37,7 @@ export class AppMainComponent implements OnInit {
                 switch (token.state) {
                     case 'LOCKED':
                     case 'CANCELED':
+                    case 'DELETED':
                         this.toast.info("Token state " + token.state, null, {timeOut: 2000, positionClass: 'toast-bottom-center'});
                         break;
                     case 'COMPLETED':
