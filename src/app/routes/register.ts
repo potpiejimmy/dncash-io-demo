@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import * as keypair from 'keypair';
 import { LocalStorageService } from "angular-2-local-storage";
 import { TokenApiService } from "../services/tokenapi.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 
