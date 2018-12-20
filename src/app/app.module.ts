@@ -23,6 +23,7 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { NgxBarcode6Module } from 'ngx-barcode6';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { NgxKjuaModule } from 'ngx-kjua';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
@@ -73,6 +74,7 @@ import { MobileApiService } from './services/mobileapi.service';
     ZXingScannerModule,
     NgxBarcode6Module,
     NgxQRCodeModule,
+    NgxKjuaModule,
     LocalStorageModule.withConfig({ prefix: 'dncashio-demo', storageType: 'localStorage' }), // or sessionStorage
     ToastrModule.forRoot({ preventDuplicates: true }),
     // App:

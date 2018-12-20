@@ -21,18 +21,12 @@
         </div>
     </div>
 </div>
-<!-- <div class="horizontalright" style="margin-right: 20px; margin-bottom: 5px;" *ngIf="!scanning && eanexists">
-    <mat-slide-toggle 
-        color = 'primary'
-        [checked] = "!ean"
-        (change) = "toggleean()">
-    QR</mat-slide-toggle>
-</div> -->
-<ngx-qrcode *ngIf="!scanning && !ean"
-        [qrc-value] = "qrCodeData()"
-        qrc-class = "qrcode"
-        qrc-errorCorrectionLevel = "M">
-</ngx-qrcode>
+<div class="horizontalcenter" *ngIf="!scanning && !ean">
+    <ngx-kjua   [text]="qrCodeData()"
+    [back]="'#F0F8FF'"
+    [size]="350"
+    ></ngx-kjua>
+</div>
 <div class="horizontalcenter" *ngIf="!scanning && ean">
     <ngx-barcode6
         bc-width="4"
@@ -47,7 +41,7 @@
     </p>
     <div class="horizontalcenter">
         <div [style.width.px]="qrCanvasWidth" [style.height.px]="qrCanvasHeight">
-            <zxing-scanner #scanner style="width: 100%;" start="true" [device]="currentDevice" (scanSuccess)="qrCodeScanned($event)"></zxing-scanner>
+            <zxing-scanner style="width: 100%;" start="true" [device]="currentDevice" (scanSuccess)="qrCodeScanned($event)"></zxing-scanner>
         </div>
     </div>
 </div>

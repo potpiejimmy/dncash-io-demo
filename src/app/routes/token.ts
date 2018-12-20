@@ -18,8 +18,6 @@ import * as moment from 'moment';
 export class TokenComponent implements OnInit, OnDestroy {
 
     scanner: ZXingScannerComponent;
-    qrCanvasWidth: number;
-    qrCanvasHeight: number;
 
     hasDevices: boolean;
     hasPermission: boolean;
@@ -37,14 +35,12 @@ export class TokenComponent implements OnInit, OnDestroy {
 
     triggercodeQueryParam: string;
 
-    @ViewChild('scanner') set scannerComponent(scannerComponent: ZXingScannerComponent) {
+    @ViewChild(ZXingScannerComponent) set scannerComponent(scannerComponent: ZXingScannerComponent) {
         if (scannerComponent) {
             this.scanner = scannerComponent;
             this.setupCamera();
        }
     } 
-    // @ViewChild('scanner')
-    // scanner: ZXingScannerComponent;
     
     constructor(
         private localStorageService: LocalStorageService,
@@ -55,8 +51,6 @@ export class TokenComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         public toast: ToastrService
     ) {
-        this.qrCanvasWidth = environment.production ? 240 : 320;
-        this.qrCanvasHeight = environment.production ? 320 : 240;
     }
 
     ngOnInit(): void {
@@ -161,6 +155,8 @@ export class TokenComponent implements OnInit, OnDestroy {
     }
 
     qrCodeScanned(triggercode: string) {
+        if (!this.scanning) return;
+        this.scanning = false
         let triggerCodeParam = "triggercode=";
         let triggerCodeParamIx = triggercode.indexOf(triggerCodeParam);
         if (triggerCodeParamIx>=0) {
