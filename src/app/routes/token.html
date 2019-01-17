@@ -21,13 +21,13 @@
         </div>
     </div>
 </div>
-<div class="horizontalcenter" *ngIf="!scanning && !ean">
-    <ngx-kjua   [text]="qrCodeData()"
+<div class="horizontalcenter" *ngIf="!scanning && !ean && decryptedToken">
+    <ngx-kjua [text]="qrCodeData()"
     [back]="'#F0F8FF'"
-    [size]="350"
+    [size]="320"
     ></ngx-kjua>
 </div>
-<div class="horizontalcenter" *ngIf="!scanning && ean">
+<div class="horizontalcenter" *ngIf="!scanning && ean && decryptedToken">
     <ngx-barcode6
         bc-width="4"
         bc-height="200"
