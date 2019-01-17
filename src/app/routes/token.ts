@@ -4,8 +4,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { TokenApiService } from "../services/tokenapi.service";
 import * as crypto from "crypto-browserify";
 import { LocalStorageService } from "angular-2-local-storage";
+import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { Buffer } from "buffer";
-import { QrScannerComponent } from "angular2-qrscanner";
 import { MobileApiService } from "../services/mobileapi.service";
 import { environment } from "../../environments/environment";
 import { ToastrService } from "ngx-toastr";
@@ -17,14 +17,17 @@ import * as moment from 'moment';
 })
 export class TokenComponent implements OnInit, OnDestroy {
 
-    qrScannerComponent: QrScannerComponent;
-    qrCanvasWidth: number;
-    qrCanvasHeight: number;
+    scanner: ZXingScannerComponent;
+
+    hasDevices: boolean;
+    hasPermission: boolean;
+
+    availableDevices: MediaDeviceInfo[];
+    currentDevice: MediaDeviceInfo;
 
     decryptedToken: Buffer;
     decrypting: boolean = true;
     scanning: boolean;
-    eanexists: boolean;
     ean: boolean;
 
     expirationString: string;
@@ -32,15 +35,14 @@ export class TokenComponent implements OnInit, OnDestroy {
 
     triggercodeQueryParam: string;
 
-    @ViewChild(QrScannerComponent) set scannerComponent(scannerComponent: QrScannerComponent) {
+    @ViewChild(ZXingScannerComponent) set scannerComponent(scannerComponent: ZXingScannerComponent) {
         if (scannerComponent) {
-            this.qrScannerComponent = scannerComponent;
+            this.scanner = scannerComponent;
             this.setupCamera();
-        }
-    }
-
+       }
+    } 
+    
     constructor(
-        private zone: NgZone,
         private localStorageService: LocalStorageService,
         public appService: AppService,
         private tokenApiService: TokenApiService,
@@ -49,8 +51,6 @@ export class TokenComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         public toast: ToastrService
     ) {
-        this.qrCanvasWidth = environment.production ? 240 : 320;
-        this.qrCanvasHeight = environment.production ? 320 : 240;
     }
 
     ngOnInit(): void {
@@ -77,25 +77,15 @@ export class TokenComponent implements OnInit, OnDestroy {
         setTimeout(() => this.decryptToken(), 200);
         this.buildExpirationString();
     }
-
+    
     setupCamera(): void {
-        this.qrScannerComponent.getMediaDevices().then(devices => {
-            console.log(devices);
-            const videoDevices: MediaDeviceInfo[] = [];
-            for (const device of devices) {
-                if (device.kind.toString() === 'videoinput') {
-                    videoDevices.push(device);
-                }
-            }
-            if (videoDevices.length > 0){
-                let choosenDev = videoDevices[videoDevices.length-1];
-                this.qrScannerComponent.chooseCamera.next(choosenDev);
-            }
+        this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
+            this.hasDevices = true;
+            this.availableDevices = devices;
+            this.scanner.changeDevice(devices[0]);
         });
-
-        this.qrScannerComponent.capturedQr.subscribe(result => {
-            this.zone.run(() => this.qrCodeScanned(result));
-        });
+        this.scanner.camerasNotFound.subscribe(() => this.hasDevices = false);
+        this.scanner.permissionResponse.subscribe((perm: boolean) => this.hasPermission = perm);
     }
 
     delete() {
@@ -131,7 +121,6 @@ export class TokenComponent implements OnInit, OnDestroy {
             console.log(err);
         }
         this.ean = this.token().plain_code;
-        this.eanexists = this.ean;
         this.decrypting = false;
         // trigger code already available (passed in as param?)
         if (this.triggercodeQueryParam) this.qrCodeScanned(this.triggercodeQueryParam);
@@ -166,6 +155,8 @@ export class TokenComponent implements OnInit, OnDestroy {
     }
 
     qrCodeScanned(triggercode: string) {
+        if (!this.scanning) return;
+        this.scanning = false
         let triggerCodeParam = "triggercode=";
         let triggerCodeParamIx = triggercode.indexOf(triggerCodeParam);
         if (triggerCodeParamIx>=0) {
@@ -183,10 +174,6 @@ export class TokenComponent implements OnInit, OnDestroy {
             console.log(err);
             this.toast.warning("Invalid trigger code.", null, {timeOut: 5000, positionClass: 'toast-bottom-center'});
         });
-    }
-
-    toggleean() {
-        this.ean = !this.ean;
     }
 
     finish() {

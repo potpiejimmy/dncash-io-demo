@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { TokenApiService } from "./services/tokenapi.service";
-import { PushNotificationsService } from "ng-push";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 
@@ -12,7 +11,6 @@ export class AppMainComponent implements OnInit {
 
     constructor(
         private tokenApiService: TokenApiService,
-        private pushNotificationService: PushNotificationsService,
         private router: Router,
         public toast: ToastrService
     ) {}

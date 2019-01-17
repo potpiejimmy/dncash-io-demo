@@ -5,8 +5,7 @@ import { environment } from "../../environments/environment";
 import { LocalStorageService } from "angular-2-local-storage";
 import { HttpClient } from "@angular/common/http";
 
-import { Observer } from "rxjs/Observer";
-import { Observable } from "rxjs/Observable";
+import { Observer ,  Observable } from "rxjs";
 import { Buffer } from "buffer";
 
 @Injectable()

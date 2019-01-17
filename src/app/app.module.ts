@@ -20,10 +20,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 // Externals
 import { LocalStorageModule } from 'angular-2-local-storage';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { NgxBarcode6Module } from 'ngx-barcode6';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { NgQrScannerModule } from 'angular2-qrscanner';
-import { NgxBarcodeModule } from 'ngx-barcode';
-import { PushNotificationsModule } from 'ng-push';
+import { NgxKjuaModule } from 'ngx-kjua';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
@@ -71,10 +71,10 @@ import { MobileApiService } from './services/mobileapi.service';
     MatTableModule,
     MatSlideToggleModule,
     // Externals:
+    ZXingScannerModule,
+    NgxBarcode6Module,
     NgxQRCodeModule,
-    NgQrScannerModule,
-    NgxBarcodeModule,
-    PushNotificationsModule,
+    NgxKjuaModule,
     LocalStorageModule.withConfig({ prefix: 'dncashio-demo', storageType: 'localStorage' }), // or sessionStorage
     ToastrModule.forRoot({ preventDuplicates: true }),
     // App:
