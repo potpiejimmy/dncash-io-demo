@@ -82,10 +82,21 @@ export class TokenComponent implements OnInit, OnDestroy {
         this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
             this.hasDevices = true;
             this.availableDevices = devices;
-            this.scanner.changeDevice(devices[0]);
+            if (devices.length > 0){
+                this.currentDevice = devices[0];
+                for (const device of devices){
+                    console.log(device);
+                    if(!device.label.toUpperCase().includes("FR")) this.currentDevice = device;
+                }
+                this.scanner.changeDevice(this.currentDevice);
+            }
         });
         this.scanner.camerasNotFound.subscribe(() => this.hasDevices = false);
         this.scanner.permissionResponse.subscribe((perm: boolean) => this.hasPermission = perm);
+    }
+
+    onDeviceSelectChange(selectedValue: string) {
+        this.currentDevice = this.scanner.getDeviceById(selectedValue);
     }
 
     delete() {
@@ -155,7 +166,7 @@ export class TokenComponent implements OnInit, OnDestroy {
     }
 
     qrCodeScanned(triggercode: string) {
-        if (!this.scanning) return;
+        if (!this.scanning && !this.triggercodeQueryParam) return;
         this.scanning = false
         let triggerCodeParam = "triggercode=";
         let triggerCodeParamIx = triggercode.indexOf(triggerCodeParam);

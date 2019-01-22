@@ -39,9 +39,18 @@
     <p class="horizontalcenter">
         Scan the QR code on the ATM:
     </p>
+    <div *ngIf="availableDevices" class="horizontalcenter">
+        <mat-form-field>
+            <mat-select placeholder="Camera select" (selectionChange)="onDeviceSelectChange($event.value)">
+              <mat-option *ngFor="let device of availableDevices" [value]="device.deviceId">
+                {{device.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
     <div class="horizontalcenter">
-        <div [style.width.px]="qrCanvasWidth" [style.height.px]="qrCanvasHeight">
-            <zxing-scanner style="width: 100%;" start="true" [device]="currentDevice" (scanSuccess)="qrCodeScanned($event)"></zxing-scanner>
+        <div style="width: 95%; height: 60%;">
+            <zxing-scanner start="true" [device]="currentDevice" (scanSuccess)="qrCodeScanned($event)"></zxing-scanner>
         </div>
     </div>
 </div>
